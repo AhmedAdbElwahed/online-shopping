@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
     'easy_thumbnails',
 ]
 
@@ -143,3 +144,22 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_SESSION_ID = 'cart'
+
+# SMTP email config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = '2959fded7d01f6'
+EMAIL_HOST_PASSWORD = '42824902bffe5e'
+EMAIL_USE_TLS = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Strip Config
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51OiBkTCsazOuaK6gtujP9UBBpHbZPO74zXDni0S4GGb2AGnK9Wk6ECqHjEc9CJ5jR' \
+                         'lcqSlBOOzNQoqTZPIavPnTV00wpFS31w1'
+STRIPE_SECRET_KEY = 'sk_test_51OiBkTCsazOuaK6gwPWnoPUdAt5U6tW07UDUPszaY6WHTakGMwjUCDrQSfTKQStdMVatt' \
+                    'UHUIeRDbQprGwEF07Bx00kixH2yPp'
+STRIPE_API_VERSION = '2023-10-16'
+
+STRIPE_WEBHOOK_SECRET = 'whsec_c3afc91c41cf58a8b58e23b73c33d13343b9e8c47e40967bc32b783ec1327410'

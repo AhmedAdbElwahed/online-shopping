@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+    Your shopping cart
+{% endblock %}
+{% block content %}
+    <h1>Your shopping cart</h1>
+    <table class="cart">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit price</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{% if product.image %}{{ product.image.url }}
+                {% else %}{% static "img/no_image.png" %}{% endif %}">
+                        </a>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                            {{ item.update_quantity_form.quantity }}
+                            {{ item.update_quantity_form.override }}
+                            <input type="submit" value="Update">
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url "cart:cart_remove" product.id %}" method="post">
+                            <input type="submit" value="Remove">
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td class="num">EGP{{ item.price|intcomma }}</td>
+                    <td class="num">EGP{{ item.total_price|intcomma }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">EGP{{ cart.get_total_price|intcomma }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url "shop:product_list" %}" class="button
+    light">Continue shopping</a>
+        <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
+    </p>
+{% endblock %}
+
+{#{% block content %}#}
+{#    <div class="mt-4 mb-4">#}
+{#        <div class="card">#}
+{#            <div class="row">#}
+{#                <div class="col-md-8 cart">#}
+{#                    <div class="title">#}
+{#                        <div class="row">#}
+{#                            <div class="col"><h4><b>Shopping Cart</b></h4></div>#}
+{#                            <div class="col align-self-center text-right text-muted">3 items</div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    {% for item in cart %}#}
+{#                        {% with product=item.product %}#}
+{#                            <div class="row border-top border-bottom">#}
+{#                                <div class="row main align-items-center">#}
+{#                                    <div class="col-2">#}
+{#                                        <a href="{{ product.get_absolute_url }}">#}
+{#                                            <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}#}
+{#                                                {% else %}{% static "images/no-image.jpg" %}{% endif %}">#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                    <div class="col">#}
+{#                                        <div class="row text-muted">{{ product.category }}</div>#}
+{#                                        <div class="row">{{ product.name }}</div>#}
+{#                                    </div>#}
+{#                                    <div class="col">#}
+{#                                        <form action="{% url "cart:cart_add" product.id %}" method="post">#}
+{#                                            {{ item.update_quantity_form.quantity }}#}
+{#                                            {{ item.update_quantity_form.override }}#}
+{#                                            <input type="submit" value="Update">#}
+{#                                            {% csrf_token %}#}
+{#                                        </form>#}
+{#                                    </div>#}
+{#                                    <div class="col">#}
+{#                                        &euro; {{ product.price }}#}
+{#                                        <span class="close">&#10005;</span>#}
+{#                                        <form action="{% url "cart:cart_remove" product.id %}" method="post">#}
+{#                                            <input type="submit" value="Remove">#}
+{#                                            <button type="submit">&#10005;</button>#}
+{#                                            {% csrf_token %}#}
+{#                                        </form>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endwith %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <div class="col-md-4 summary">#}
+{#                    <div><h5><b>Summary</b></h5></div>#}
+{#                    <hr>#}
+{#                    <div class="row">#}
+{#                        <div class="col" style="padding-left:0;">ITEMS 3</div>#}
+{#                        <div class="col text-right">&euro; 132.00</div>#}
+{#                    </div>#}
+{#                    <form class="form">#}
+{#                        <p>SHIPPING</p>#}
+{#                        <select class="form-select">#}
+{#                            <option class="text-muted">Standard-Delivery- &euro;5.00</option>#}
+{#                        </select>#}
+{#                        <p>GIVE CODE</p>#}
+{#                        <input id="code" class="form-control" placeholder="Enter your code">#}
+{#                    </form>#}
+{#                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">#}
+{#                        <div class="col">TOTAL PRICE</div>#}
+{#                        <div class="col text-right">&euro; 137.00</div>#}
+{#                    </div>#}
+{#                    <button class="btn btn-primary">CHECKOUT</button>#}
+{#                    <div class="">#}
+{#                        <a href="{% url 'shop:product_list' %}" class="btn btn-info">&leftarrow;BACK TO SHOP</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#{% endblock %}#}

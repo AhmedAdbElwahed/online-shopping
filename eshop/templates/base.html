@@ -4,17 +4,30 @@
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}Eshop{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
-          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"#}
+{#          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="#}
+{#          crossorigin="anonymous" referrerpolicy="no-referrer"/>#}
     <link href="{% static "css/style.css" %}" rel="stylesheet">
 </head>
 <body>
 <div id="header">
     <a href="/" class="logo">Eshop</a>
 </div>
-{#<div id="subheader">#}
-
+<div id="subheader">
+    <div class="cart">
+        {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+                Your cart:
+                <a href="{% url "cart:cart_detail" %}">
+                    {{ total_items }} item{{ total_items|pluralize }},
+                    EGP{{ cart.get_total_price }}
+                </a>
+            {% elif not order %}
+                Your cart is empty.
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
 <div id="content">
     {% block content %}
     {% endblock %}
