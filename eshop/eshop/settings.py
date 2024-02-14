@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
     'easy_thumbnails',
+    'wkhtmltopdf',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+# STATIC_ROOT = BASE_DIR / 'static'
 
 # Media files
 MEDIA_URL = 'media/'
@@ -163,3 +165,5 @@ STRIPE_SECRET_KEY = 'sk_test_51OiBkTCsazOuaK6gwPWnoPUdAt5U6tW07UDUPszaY6WHTakGMw
 STRIPE_API_VERSION = '2023-10-16'
 
 STRIPE_WEBHOOK_SECRET = 'whsec_c3afc91c41cf58a8b58e23b73c33d13343b9e8c47e40967bc32b783ec1327410'
+
+
