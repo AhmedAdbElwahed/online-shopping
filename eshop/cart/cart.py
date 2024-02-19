@@ -1,12 +1,14 @@
 from decimal import Decimal
 
 from django.conf import settings
+from django.core.handlers.wsgi import WSGIRequest
 
 from shop.models import Product
+from coupons.models import Coupon
 
 
 class Cart:
-    def __init__(self, request):
+    def __init__(self, request: WSGIRequest):
         """
         Initialize the cart
         """
@@ -16,6 +18,8 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
 
         self.cart = cart
+        # store current applied coupon
+        self.coupon_id = self.session.get('coupon_id')
 
     def save(self):
         # mark the session as "modified" to make sure it gets saved
@@ -46,6 +50,23 @@ class Cart:
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
+
+    @property
+    def coupon(self):
+        if self.coupon_id:
+            try:
+                return Coupon.objects.get(id=self.coupon_id)
+            except Coupon.DoesNotExist:
+                pass
+        return None
+
+    def get_discount(self):
+        if self.coupon:
+            return (self.coupon.discount / Decimal(100)) * self.get_total_price()
+        return Decimal(0)
+
+    def get_total_price_after_discount(self):
+        return self.get_total_price() - self.get_discount()
 
     def __iter__(self):
         """

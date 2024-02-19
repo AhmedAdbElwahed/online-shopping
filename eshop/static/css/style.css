@@ -329,4 +329,12 @@ form div.field {
     border-radius: 4px;
 }
 
+.coupon div{
+    display: inline;
+}
+
+.coupon div input {
+    padding: 10px 20px;
+}
+
 
