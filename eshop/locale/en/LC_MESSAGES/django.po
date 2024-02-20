@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-20 18:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\eshop\settings.py:181
+msgid "English"
+msgstr ""
+
+#: .\eshop\settings.py:182
+msgid "Arabic"
+msgstr ""
+
+#: .\eshop\urls.py:26
+msgid "cart/"
+msgstr ""
+
+#: .\eshop\urls.py:27
+msgid "orders/"
+msgstr ""
+
+#: .\eshop\urls.py:28
+msgid "payment/"
+msgstr ""
+
+#: .\eshop\urls.py:29
+msgid "coupons/"
+msgstr ""
+
+#: .\eshop\urls.py:30
+msgid "rosetta/"
+msgstr ""
+
+#: .\shop\templates\product\detail.html:23
+msgid "Add to cart"
+msgstr ""
+
+#: .\shop\templates\product\detail.html:28
+msgid "People who bought this also bought"
+msgstr ""
+
+#: .\shop\templates\product\list.html:7 .\shop\templates\product\list.html:25
+msgid "Products"
+msgstr ""
+
+#: .\shop\templates\product\list.html:11
+msgid "Categories"
+msgstr ""
+
+#: .\shop\templates\product\list.html:14
+msgid "All"
+msgstr ""
+
+#: .\templates\base.html:15
+msgid "Eshop"
+msgstr ""
+
+#: .\templates\base.html:20
+msgid "Language"
+msgstr ""
+
+#: .\templates\base.html:37
+msgid "Your cart"
+msgstr ""
+
+#: .\templates\base.html:39
+#, python-format
+msgid ""
+"\n"
+"                        %(items)s item, EGP%(total)s\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(items)s items, EGP%(total)s\n"
+"                    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\base.html:48
+msgid "Your cart is empty."
+msgstr ""

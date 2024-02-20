@@ -1,29 +1,51 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}Eshop{% endblock %}</title>
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"#}
-{#          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="#}
-{#          crossorigin="anonymous" referrerpolicy="no-referrer"/>#}
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"#}
+    {#          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="#}
+    {#          crossorigin="anonymous" referrerpolicy="no-referrer"/>#}
     <link href="{% static "css/style.css" %}" rel="stylesheet">
 </head>
 <body>
 <div id="header">
-    <a href="/" class="logo">Eshop</a>
+    <a href="/" class="logo">{% translate "Eshop" %}</a>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    <div class="languages">
+        <p>{% translate "Language" %}:</p>
+        <ul class="languages">
+            {% for language in languages %}
+                <li>
+                    <a href="/{{ language.code }}/"
+                            {% if language.code == LANGUAGE_CODE %} class="selected"{% endif %}>
+                        {{ language.name_local }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 <div id="subheader">
     <div class="cart">
         {% with total_items=cart|length %}
             {% if total_items > 0 %}
-                Your cart:
+                {% trans "Your cart" %}:
                 <a href="{% url "cart:cart_detail" %}">
-                    {{ total_items }} item{{ total_items|pluralize }},
-                    EGP{{ cart.get_total_price }}
+                    {% blocktranslate with total=cart.get_total_price count items=total_items %}
+                        {{ items }} item, EGP{{ total }}
+                    {% plural %}
+                        {{ items }} items, EGP{{ total }}
+                    {% endblocktranslate %}
+                    {#                    {{ total_items }} item{{ total_items|pluralize }},#}
+                    {#                    EGP{{ cart.get_total_price }}#}
                 </a>
             {% elif not order %}
-                Your cart is empty.
+                {% translate "Your cart is empty." %}
             {% endif %}
         {% endwith %}
     </div>

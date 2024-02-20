@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load humanize %}
+{% load i18n %}
 {% block title %}
     {{ product.name }}
 {% endblock %}
@@ -19,12 +20,12 @@
         <form action="{% url "cart:cart_add" product.id %}" method="post">
             {{ cart_product_form }}
             {% csrf_token %}
-            <input type="submit" value="Add to cart" style="margin-top: 10px;">
+            <input type="submit" value="{% trans "Add to cart" %}" style="margin-top: 10px;">
         </form>
         {{ product.description|linebreaks }}
         {% if recommended_products %}
             <div class="recommendations">
-                <h3>People who bought this also bought</h3>
+                <h3>{% trans "People who bought this also bought" %}</h3>
                 {% for p in recommended_products %}
                     <div class="item">
                         <a href="{{ p.get_absolute_url }}">

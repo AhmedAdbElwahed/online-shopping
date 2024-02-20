@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'coupons.apps.CouponsConfig',
     'easy_thumbnails',
     'wkhtmltopdf',
+    'rosetta',
+    'parler',
 ]
 
 MIDDLEWARE = [
@@ -175,10 +178,22 @@ REDIS_DB = 1
 
 # Internationalization config
 LANGUAGES = [
-    ('en', 'English'),
-    ('ar', 'Arabic'),
+    ('en', _('English')),
+    ('ar', _('Arabic')),
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'local',
+    BASE_DIR / 'locale',
 ]
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'ar'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
+
